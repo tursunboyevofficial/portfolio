@@ -36,7 +36,7 @@ const Navbar = () => {
         scrolled ? 'glass' : 'bg-transparent'
       }`}
     >
-      <div className='w-full flex justify-between items-center max-w-7xl mx-auto px-6 sm:px-6'>
+      <div className='w-full flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6'>
         {/* Logo */}
         <a
           href='#'
@@ -107,12 +107,13 @@ const Navbar = () => {
         </a>
 
         {/* Mobile Menu Button */}
-        <div className='md:hidden flex items-center'>
+        <div className='md:hidden flex items-center mr-1'>
           <button
             onClick={() => togglePanel(PANELS.MOBILE_MENU)}
-            className='w-10 h-10 flex flex-col items-center justify-center gap-1.5 hoverable rounded-lg'
+            className='w-11 h-11 flex flex-col items-center justify-center gap-1.5 hoverable rounded-xl'
             style={{
-              backgroundColor: 'rgba(145, 94, 255, 0.1)',
+              backgroundColor: 'rgba(145, 94, 255, 0.2)',
+              border: '1px solid rgba(145, 94, 255, 0.3)',
             }}
           >
             <motion.span
