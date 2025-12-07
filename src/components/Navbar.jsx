@@ -107,10 +107,13 @@ const Navbar = () => {
         </a>
 
         {/* Mobile Menu Button - always visible on mobile */}
-        <div className='md:hidden flex items-center'>
+        <div className='md:hidden flex items-center mr-2'>
           <button
             onClick={() => togglePanel(PANELS.MOBILE_MENU)}
-            className='w-10 h-10 flex flex-col items-center justify-center gap-1.5 hoverable'
+            className='w-12 h-12 flex flex-col items-center justify-center gap-1.5 hoverable rounded-lg'
+            style={{
+              backgroundColor: 'rgba(145, 94, 255, 0.1)',
+            }}
           >
             <motion.span
               animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
