@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables for theming */
+:root {
+  --color-primary: #915eff;
+  --color-secondary: #00cea8;
+  --color-accent: #f272c8;
+  --color-background: #050816;
+  --color-background-alt: #0a0f1e;
+  --color-tertiary: #151030;
+  --color-text: #ffffff;
+  --color-text-secondary: #aaa6c3;
+  --glow-color: rgba(145, 94, 255, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-background);
+  transition: background-color 0.5s ease;
+}
+
+.bg-theme {
+  background-color: var(--color-background);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+
+/* Gradient Text with theme colors */
+.gradient-text {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Glass effect with theme */
+.glass {
+  background: rgba(29, 24, 54, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(145, 94, 255, 0.2);
+  border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+/* Neon glow effects */
+.glow {
+  box-shadow: 0 0 20px var(--glow-color);
+}
+
+.neon-border {
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 0 10px var(--glow-color), inset 0 0 10px var(--glow-color);
+}
+
+.neon-text {
+  text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary), 0 0 40px var(--color-primary);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--glow-color); }
+  50% { box-shadow: 0 0 40px var(--glow-color), 0 0 60px var(--glow-color); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 5px var(--color-primary), 0 0 10px var(--color-primary), 0 0 20px var(--color-primary);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+.neon-flicker {
+  animation: neon-flicker 1.5s infinite alternate;
+}
+
+/* Hero gradient with theme */
+.hero-gradient {
+  background: linear-gradient(135deg,
+    var(--color-background) 0%,
+    var(--color-tertiary) 50%,
+    var(--color-background) 100%
+  );
+}
+
+/* Other gradients */
+.violet-gradient {
+  background: linear-gradient(-90deg, var(--color-primary) 0%, transparent 100%);
+}
+
+.green-pink-gradient {
+  background: linear-gradient(90.13deg, var(--color-secondary) 1.9%, var(--color-accent) 97.5%);
+}
+
+.green-text-gradient {
+  background: linear-gradient(to top, #11998e, #38ef7d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.blue-text-gradient {
+  background: linear-gradient(to top, #2f80ed, #56ccf2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pink-text-gradient {
+  background: linear-gradient(to top, #ec008c, #fc6767);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.black-gradient {
+  background: linear-gradient(to right, #434343, #000000);
+}
+
+.hash-span {
+  margin-top: -100px;
+  padding-bottom: 100px;
+  display: block;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  /* Hero section adjustments */
+  .hero-section h1 {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero-section h2 {
+    font-size: 1.25rem !important;
+  }
+
+  /* Reduce animation sizes on mobile */
+  .violet-gradient {
+    height: 100px !important;
+  }
+
+  /* Fix navigation overflow */
+  .nav-mobile {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even smaller screens */
+  .hero-section h1 {
+    font-size: 1.75rem !important;
+  }
+
+  .hero-section h2 {
+    font-size: 1rem !important;
+  }
+
+  /* Smaller buttons */
+  .hero-buttons button {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Interactive elements */
+.hoverable {
+  transition: all 0.3s ease;
+}
+
+.hoverable:hover {
+  transform: translateY(-2px);
+}
+
+/* Background patterns */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(145, 94, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(145, 94, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Neon card hover effect */
+.neon-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.neon-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(145, 94, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.neon-card:hover::before {
+  left: 100%;
+}
+
+/* Spotlight effect for cursor */
+.spotlight {
+  position: fixed;
+  pointer-events: none;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-color), transparent 70%);
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  z-index: 9990;
+}
