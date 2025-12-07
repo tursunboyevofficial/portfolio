@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HiChat, HiCog } from 'react-icons/hi';
 import { personalInfo } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
@@ -106,37 +107,64 @@ const Navbar = () => {
           </motion.button>
         </a>
 
-        {/* Mobile Menu Button - always visible on mobile */}
-        <div className='md:hidden flex items-center mr-4'>
+        {/* Mobile Buttons Row - Chat, Settings, Burger */}
+        <div className='md:hidden flex items-center gap-2'>
+          {/* Chat Button */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => togglePanel(PANELS.AI_CHAT)}
+            className='w-9 h-9 rounded-full flex items-center justify-center text-white'
+            style={{
+              background: `linear-gradient(135deg, ${currentTheme.colors.secondary}, ${currentTheme.colors.primary})`,
+              boxShadow: `0 0 12px ${currentTheme.colors.secondary}50`,
+            }}
+          >
+            <HiChat size={16} />
+          </motion.button>
+
+          {/* Settings Button */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => togglePanel(PANELS.SETTINGS)}
+            className='w-9 h-9 rounded-full flex items-center justify-center text-white'
+            style={{
+              background: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`,
+              boxShadow: `0 0 12px ${currentTheme.glowColor}`,
+            }}
+          >
+            <HiCog size={16} />
+          </motion.button>
+
+          {/* Burger Menu */}
           <button
             onClick={() => togglePanel(PANELS.MOBILE_MENU)}
-            className='w-12 h-12 flex flex-col items-center justify-center gap-1.5 hoverable rounded-lg'
+            className='w-9 h-9 flex flex-col items-center justify-center gap-1 hoverable rounded-lg'
             style={{
-              backgroundColor: 'rgba(145, 94, 255, 0.1)',
+              backgroundColor: 'rgba(145, 94, 255, 0.15)',
             }}
           >
             <motion.span
-              animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className='w-6 h-[3px] block rounded-full'
+              animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+              className='w-4 h-[2px] block rounded-full'
               style={{
                 backgroundColor: currentTheme.colors.primary,
-                boxShadow: `0 0 6px ${currentTheme.colors.primary}`,
+                boxShadow: `0 0 4px ${currentTheme.colors.primary}`,
               }}
             />
             <motion.span
               animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className='w-6 h-[3px] block rounded-full'
+              className='w-4 h-[2px] block rounded-full'
               style={{
                 backgroundColor: currentTheme.colors.primary,
-                boxShadow: `0 0 6px ${currentTheme.colors.primary}`,
+                boxShadow: `0 0 4px ${currentTheme.colors.primary}`,
               }}
             />
             <motion.span
-              animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className='w-6 h-[3px] block rounded-full'
+              animate={isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+              className='w-4 h-[2px] block rounded-full'
               style={{
                 backgroundColor: currentTheme.colors.primary,
-                boxShadow: `0 0 6px ${currentTheme.colors.primary}`,
+                boxShadow: `0 0 4px ${currentTheme.colors.primary}`,
               }}
             />
           </button>
