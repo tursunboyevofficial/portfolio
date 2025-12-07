@@ -9,13 +9,13 @@ const TechModel = () => {
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    meshRef.current.rotation.y = t * 0.3;
-    ringRef.current.rotation.z = t * 0.5;
-    ringRef.current.rotation.x = Math.sin(t * 0.5) * 0.2;
+    meshRef.current.rotation.y = t * 0.15;
+    ringRef.current.rotation.z = t * 0.2;
+    ringRef.current.rotation.x = Math.sin(t * 0.2) * 0.15;
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+    <Float speed={0.8} rotationIntensity={0.3} floatIntensity={0.3}>
       <group>
         {/* Main Icosahedron */}
         <mesh ref={meshRef} scale={1.5}>
@@ -50,8 +50,8 @@ const TechModel = () => {
           />
         </mesh>
 
-        {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
+        {/* Floating Particles - reduced for performance */}
+        {[...Array(10)].map((_, i) => (
           <FloatingParticle key={i} index={i} />
         ))}
       </group>
@@ -61,15 +61,15 @@ const TechModel = () => {
 
 const FloatingParticle = ({ index }) => {
   const meshRef = useRef();
-  const radius = 2 + Math.random() * 1.5;
-  const speed = 0.5 + Math.random() * 0.5;
-  const offset = (index / 20) * Math.PI * 2;
+  const radius = 2.5 + Math.random() * 1;
+  const speed = 0.1 + Math.random() * 0.15;
+  const offset = (index / 10) * Math.PI * 2;
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime() * speed + offset;
     meshRef.current.position.x = Math.sin(t) * radius;
     meshRef.current.position.z = Math.cos(t) * radius;
-    meshRef.current.position.y = Math.sin(t * 2) * 0.5;
+    meshRef.current.position.y = Math.sin(t * 0.5) * 0.3;
   });
 
   return (
