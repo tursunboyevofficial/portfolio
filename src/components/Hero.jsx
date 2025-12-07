@@ -29,7 +29,7 @@ const Hero = () => {
     : { x: 0, y: 0, rotateX: 0, rotateY: 0 };
 
   return (
-    <section className='relative w-full min-h-screen mx-auto overflow-hidden hero-section'>
+    <section className='relative w-full h-screen max-h-screen mx-auto overflow-hidden hero-section'>
       {/* Background gradient */}
       <div className='absolute inset-0 hero-gradient' />
 
@@ -214,7 +214,7 @@ const Hero = () => {
 
         {/* Right side - 3D Canvas with gyroscope effect */}
         <motion.div
-          className='lg:w-1/2 w-full h-[280px] sm:h-[320px] lg:h-[450px] mt-10 sm:mt-8 lg:mt-0 flex items-center justify-center'
+          className='lg:w-1/2 w-full h-[220px] sm:h-[280px] lg:h-[450px] mt-4 sm:mt-6 lg:mt-0 flex items-center justify-center'
           animate={{
             rotateX: gyroTransform.rotateX,
             rotateY: -gyroTransform.rotateY,

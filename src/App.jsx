@@ -10,7 +10,7 @@ function AppContent() {
   useVisitorTracking();
 
   return (
-    <div className='relative z-0 bg-theme transition-colors duration-500'>
+    <div className='relative z-0 bg-theme transition-colors duration-500 overflow-x-hidden w-full max-w-full'>
       {/* Custom Cursor */}
       <CustomCursor />
 

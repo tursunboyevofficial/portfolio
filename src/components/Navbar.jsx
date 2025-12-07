@@ -107,10 +107,10 @@ const Navbar = () => {
         </a>
 
         {/* Mobile Menu Button */}
-        <div className='md:hidden flex items-center'>
+        <div className='md:hidden flex items-center mr-3'>
           <button
             onClick={() => togglePanel(PANELS.MOBILE_MENU)}
-            className='w-10 h-10 flex flex-col items-center justify-center gap-1.5 hoverable rounded-lg'
+            className='w-11 h-11 flex flex-col items-center justify-center gap-1.5 hoverable rounded-lg'
             style={{
               backgroundColor: 'rgba(145, 94, 255, 0.15)',
             }}
@@ -160,7 +160,7 @@ const Navbar = () => {
                 initial={{ opacity: 0, y: -20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                className='fixed top-14 left-3 right-3 p-4 glass rounded-xl md:hidden z-50'
+                className='fixed top-16 left-4 right-4 p-4 glass rounded-xl md:hidden z-50'
                 style={{
                   borderColor: `${currentTheme.colors.primary}30`,
                   boxShadow: `0 0 30px ${currentTheme.glowColor}`,

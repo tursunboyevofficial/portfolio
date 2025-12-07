@@ -62,14 +62,14 @@ const TechModel = () => {
 const FloatingParticle = ({ index }) => {
   const meshRef = useRef();
   const radius = 2.5 + Math.random() * 1;
-  const speed = 0.1 + Math.random() * 0.15;
+  const speed = 0.02 + Math.random() * 0.03;
   const offset = (index / 10) * Math.PI * 2;
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime() * speed + offset;
     meshRef.current.position.x = Math.sin(t) * radius;
     meshRef.current.position.z = Math.cos(t) * radius;
-    meshRef.current.position.y = Math.sin(t * 0.5) * 0.3;
+    meshRef.current.position.y = Math.sin(t * 0.3) * 0.2;
   });
 
   return (

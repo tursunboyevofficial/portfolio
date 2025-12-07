@@ -19,7 +19,7 @@ const SettingsPanel = () => {
         whileHover={{ scale: 1.1, rotate: 90 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => togglePanel(PANELS.SETTINGS)}
-        className='fixed bottom-6 right-5 z-50 w-11 h-11 rounded-full flex items-center justify-center text-white hoverable'
+        className='fixed bottom-6 right-5 z-50 w-12 h-12 rounded-full flex items-center justify-center text-white hoverable sm:bottom-8 sm:right-6 sm:w-10 sm:h-10'
         style={{
           background: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`,
           boxShadow: `0 0 20px ${currentTheme.glowColor}`,
