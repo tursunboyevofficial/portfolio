@@ -33,33 +33,33 @@ const Hero = () => {
       {/* Background gradient */}
       <div className='absolute inset-0 hero-gradient' />
 
-      {/* Animated background particles - moves with gyroscope */}
+      {/* Animated background particles - slow floating effect */}
       <motion.div
         className='absolute inset-0 overflow-hidden pointer-events-none'
         animate={{
-          x: gyroTransform.x * 2,
-          y: gyroTransform.y * 2,
+          x: gyroTransform.x * 0.5,
+          y: gyroTransform.y * 0.5,
         }}
-        transition={{ type: 'spring', stiffness: 50, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 30, damping: 40 }}
       >
-        {[...Array(10)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className='absolute w-1 h-1 rounded-full'
+            className='absolute w-1.5 h-1.5 rounded-full'
             style={{
               backgroundColor: currentTheme.colors.primary,
-              boxShadow: `0 0 8px ${currentTheme.colors.primary}`,
-              left: `${10 + (i * 9)}%`,
-              top: `${15 + (i * 8)}%`,
+              boxShadow: `0 0 6px ${currentTheme.colors.primary}`,
+              left: `${12 + (i * 10)}%`,
+              top: `${20 + (i * 9)}%`,
             }}
             animate={{
-              y: [0, -15, 0],
-              opacity: [0.2, 0.6, 0.2],
+              y: [0, -8, 0],
+              opacity: [0.3, 0.5, 0.3],
             }}
             transition={{
-              duration: 4 + i * 0.5,
+              duration: 8 + i * 1.5,
               repeat: Infinity,
-              delay: i * 0.3,
+              delay: i * 0.8,
               ease: 'easeInOut',
             }}
           />
