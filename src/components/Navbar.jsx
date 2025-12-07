@@ -107,7 +107,7 @@ const Navbar = () => {
         </a>
 
         {/* Mobile Menu Button - always visible on mobile */}
-        <div className='md:hidden flex items-center mr-2'>
+        <div className='md:hidden flex items-center mr-4'>
           <button
             onClick={() => togglePanel(PANELS.MOBILE_MENU)}
             className='w-12 h-12 flex flex-col items-center justify-center gap-1.5 hoverable rounded-lg'
