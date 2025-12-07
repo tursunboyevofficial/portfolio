@@ -36,7 +36,7 @@ const Navbar = () => {
         scrolled ? 'glass' : 'bg-transparent'
       }`}
     >
-      <div className='w-full flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6'>
+      <div className='w-full flex justify-between items-center max-w-7xl mx-auto px-6 sm:px-6'>
         {/* Logo */}
         <a
           href='#'
