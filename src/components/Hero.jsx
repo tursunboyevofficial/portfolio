@@ -18,13 +18,13 @@ const Hero = () => {
   const { currentTheme } = useTheme();
   const { tilt, isSupported } = useDeviceMotion();
 
-  // Gyroscope-based transform values
+  // Gyroscope-based transform values (reduced for mobile performance)
   const gyroTransform = isSupported
     ? {
-        x: tilt.x * 15,
-        y: tilt.y * 15,
-        rotateX: tilt.y * 5,
-        rotateY: tilt.x * 5,
+        x: tilt.x * 8,
+        y: tilt.y * 8,
+        rotateX: tilt.y * 3,
+        rotateY: tilt.x * 3,
       }
     : { x: 0, y: 0, rotateX: 0, rotateY: 0 };
 
@@ -40,26 +40,27 @@ const Hero = () => {
           x: gyroTransform.x * 2,
           y: gyroTransform.y * 2,
         }}
-        transition={{ type: 'spring', stiffness: 100, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 50, damping: 30 }}
       >
-        {[...Array(15)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
             className='absolute w-1 h-1 rounded-full'
             style={{
               backgroundColor: currentTheme.colors.primary,
               boxShadow: `0 0 8px ${currentTheme.colors.primary}`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${10 + (i * 9)}%`,
+              top: `${15 + (i * 8)}%`,
             }}
             animate={{
-              y: [0, -20, 0],
-              opacity: [0.2, 0.8, 0.2],
+              y: [0, -15, 0],
+              opacity: [0.2, 0.6, 0.2],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: 4 + i * 0.5,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: i * 0.3,
+              ease: 'easeInOut',
             }}
           />
         ))}
@@ -74,7 +75,7 @@ const Hero = () => {
             x: gyroTransform.x,
             y: gyroTransform.y,
           }}
-          transition={{ type: 'spring', stiffness: 150, damping: 30 }}
+          transition={{ type: 'spring', stiffness: 80, damping: 30 }}
         >
           {/* Animated line and dot */}
           <div className='flex items-center gap-2 sm:gap-4'>
@@ -213,12 +214,12 @@ const Hero = () => {
 
         {/* Right side - 3D Canvas with gyroscope effect */}
         <motion.div
-          className='lg:w-1/2 w-full h-[250px] sm:h-[320px] lg:h-[450px] mt-16 sm:mt-12 lg:mt-0 flex items-center justify-center'
+          className='lg:w-1/2 w-full h-[280px] sm:h-[320px] lg:h-[450px] mt-10 sm:mt-8 lg:mt-0 flex items-center justify-center'
           animate={{
             rotateX: gyroTransform.rotateX,
             rotateY: -gyroTransform.rotateY,
           }}
-          transition={{ type: 'spring', stiffness: 100, damping: 30 }}
+          transition={{ type: 'spring', stiffness: 60, damping: 30 }}
           style={{ perspective: 1000 }}
         >
           <ComputerCanvas />
