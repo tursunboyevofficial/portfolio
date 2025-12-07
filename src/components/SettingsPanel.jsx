@@ -14,21 +14,19 @@ const SettingsPanel = () => {
 
   return (
     <>
-      {/* Settings Button - hide when other panels are open */}
-      {!shouldHideButton && (
-        <motion.button
-          whileHover={{ scale: 1.1, rotate: 90 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => togglePanel(PANELS.SETTINGS)}
-          className='fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white hoverable'
-          style={{
-            background: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`,
-            boxShadow: `0 0 20px ${currentTheme.glowColor}`,
-          }}
-        >
-          <HiCog size={20} />
-        </motion.button>
-      )}
+      {/* Settings Button - always visible */}
+      <motion.button
+        whileHover={{ scale: 1.1, rotate: 90 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => togglePanel(PANELS.SETTINGS)}
+        className='fixed bottom-20 right-3 sm:bottom-6 sm:right-6 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white hoverable'
+        style={{
+          background: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`,
+          boxShadow: `0 0 20px ${currentTheme.glowColor}`,
+        }}
+      >
+        <HiCog size={20} />
+      </motion.button>
 
       {/* Settings Panel */}
       <AnimatePresence>

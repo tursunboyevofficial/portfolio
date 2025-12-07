@@ -106,31 +106,38 @@ const Navbar = () => {
           </motion.button>
         </a>
 
-        {/* Mobile Menu Button - hide when other panels are open */}
-        {!shouldHideButton && (
-          <div className='md:hidden flex items-center'>
-            <button
-              onClick={() => togglePanel(PANELS.MOBILE_MENU)}
-              className='w-10 h-10 flex flex-col items-center justify-center gap-1.5 hoverable'
-            >
-              <motion.span
-                animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                className='w-6 h-0.5 block'
-                style={{ backgroundColor: currentTheme.colors.primary }}
-              />
-              <motion.span
-                animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                className='w-6 h-0.5 block'
-                style={{ backgroundColor: currentTheme.colors.primary }}
-              />
-              <motion.span
-                animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                className='w-6 h-0.5 block'
-                style={{ backgroundColor: currentTheme.colors.primary }}
-              />
-            </button>
-          </div>
-        )}
+        {/* Mobile Menu Button - always visible on mobile */}
+        <div className='md:hidden flex items-center'>
+          <button
+            onClick={() => togglePanel(PANELS.MOBILE_MENU)}
+            className='w-10 h-10 flex flex-col items-center justify-center gap-1.5 hoverable'
+          >
+            <motion.span
+              animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+              className='w-6 h-[3px] block rounded-full'
+              style={{
+                backgroundColor: currentTheme.colors.primary,
+                boxShadow: `0 0 6px ${currentTheme.colors.primary}`,
+              }}
+            />
+            <motion.span
+              animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+              className='w-6 h-[3px] block rounded-full'
+              style={{
+                backgroundColor: currentTheme.colors.primary,
+                boxShadow: `0 0 6px ${currentTheme.colors.primary}`,
+              }}
+            />
+            <motion.span
+              animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+              className='w-6 h-[3px] block rounded-full'
+              style={{
+                backgroundColor: currentTheme.colors.primary,
+                boxShadow: `0 0 6px ${currentTheme.colors.primary}`,
+              }}
+            />
+          </button>
+        </div>
 
         {/* Mobile Menu */}
         <AnimatePresence>

@@ -139,27 +139,25 @@ const AIChat = () => {
 
   return (
     <>
-      {/* Chat Button - hide when other panels are open */}
-      {!shouldHideButton && (
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => togglePanel(PANELS.AI_CHAT)}
-          className='fixed bottom-4 right-14 sm:bottom-6 sm:right-[4.5rem] z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white hoverable'
-          style={{
-            background: `linear-gradient(135deg, ${currentTheme.colors.secondary}, ${currentTheme.colors.primary})`,
-            boxShadow: `0 0 20px ${currentTheme.colors.secondary}50`,
-          }}
-        >
-          <HiChat size={20} />
-          {!hasGreeted && (
-            <span
-              className='absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full animate-pulse'
-              style={{ backgroundColor: currentTheme.colors.accent }}
-            />
-          )}
-        </motion.button>
-      )}
+      {/* Chat Button - always visible */}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => togglePanel(PANELS.AI_CHAT)}
+        className='fixed bottom-20 right-14 sm:bottom-6 sm:right-[4.5rem] z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white hoverable'
+        style={{
+          background: `linear-gradient(135deg, ${currentTheme.colors.secondary}, ${currentTheme.colors.primary})`,
+          boxShadow: `0 0 20px ${currentTheme.colors.secondary}50`,
+        }}
+      >
+        <HiChat size={20} />
+        {!hasGreeted && (
+          <span
+            className='absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full animate-pulse'
+            style={{ backgroundColor: currentTheme.colors.accent }}
+          />
+        )}
+      </motion.button>
 
       {/* Chat Panel */}
       <AnimatePresence>
