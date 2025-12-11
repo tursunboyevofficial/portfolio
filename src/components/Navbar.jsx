@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HiCog } from 'react-icons/hi';
 import { personalInfo } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
@@ -91,20 +92,20 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Contact Button (Desktop) */}
-        <a href='#contact' className='hidden md:block'>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className='px-5 lg:px-6 py-2 rounded-full text-white font-medium text-sm hoverable'
+        {/* Desktop Action Icon: Settings only (chat moved to bottom FAB) */}
+        <div className='hidden md:flex items-center gap-3'>
+          <button
+            onClick={() => togglePanel(PANELS.SETTINGS)}
+            className='w-10 h-10 rounded-full flex items-center justify-center hoverable transition-all'
             style={{
-              background: `linear-gradient(90deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`,
-              boxShadow: `0 0 20px ${currentTheme.glowColor}`,
+              background: `linear-gradient(135deg, ${currentTheme.colors.secondary}, ${currentTheme.colors.primary})`,
+              boxShadow: `0 0 14px ${currentTheme.glowColor}`,
             }}
+            aria-label={t('settings.title')}
           >
-            {t('hero.contactMe')}
-          </motion.button>
-        </a>
+            <HiCog size={18} className='text-white' />
+          </button>
+        </div>
 
         {/* Mobile Menu Button */}
         <div className='md:hidden flex items-center mr-3'>
@@ -166,7 +167,35 @@ const Navbar = () => {
                   boxShadow: `0 0 30px ${currentTheme.glowColor}`,
                 }}
               >
+                {/* Mobile menu header with close button */}
+                <div className='flex items-center justify-between mb-3'>
+                  <div className='text-white font-bold'>{t('nav.menu') || 'Menu'}</div>
+                  <button
+                    onClick={closePanel}
+                    aria-label='Close menu'
+                    className='w-9 h-9 rounded-full flex items-center justify-center text-white hover:bg-white/10 hoverable'
+                    style={{ backgroundColor: 'transparent' }}
+                  >
+                    <svg width='18' height='18' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                      <path d='M6 18L18 6M6 6l12 12' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'/>
+                    </svg>
+                  </button>
+                </div>
                 <ul className='list-none flex flex-col gap-2'>
+                  {/* Settings item in mobile menu */}
+                  <motion.li
+                    whileHover={{ x: 5 }}
+                    className={`text-secondary font-medium text-[13px] cursor-pointer`}
+                    onClick={() => {
+                      // open settings and close menu
+                      togglePanel(PANELS.SETTINGS);
+                    }}
+                  >
+                    <div className='flex items-center gap-2 py-1.5 text-white'>
+                      <span className='w-1.5 h-1.5 rounded-full' />
+                      {t('settings.title')}
+                    </div>
+                  </motion.li>
                   {navLinks.map((link) => (
                     <motion.li
                       key={link.id}

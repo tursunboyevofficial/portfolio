@@ -144,8 +144,11 @@ const AIChat = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => togglePanel(PANELS.AI_CHAT)}
-        className='fixed bottom-6 right-20 z-50 w-12 h-12 rounded-full flex items-center justify-center text-white hoverable sm:bottom-8 sm:right-24 sm:w-10 sm:h-10'
+        className='fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full flex items-center justify-center text-white hoverable sm:bottom-8 sm:right-6 sm:w-10 sm:h-10'
         style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
           background: `linear-gradient(135deg, ${currentTheme.colors.secondary}, ${currentTheme.colors.primary})`,
           boxShadow: `0 0 20px ${currentTheme.colors.secondary}50`,
         }}

@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { HiCog, HiX, HiGlobeAlt, HiColorSwatch } from 'react-icons/hi';
 import { useLanguage, languages } from '../context/LanguageContext';
 import { useTheme, themes } from '../context/ThemeContext';
@@ -11,15 +12,33 @@ const SettingsPanel = () => {
 
   const isOpen = isPanelOpen(PANELS.SETTINGS);
   const shouldHideButton = activePanel && activePanel !== PANELS.SETTINGS;
+  const selectedTheme = themes[theme] || {};
+  const tabs = [
+    { id: 'general', title: t('settings.general') || 'General' },
+    { id: 'language', title: t('settings.language') },
+    { id: 'appearance', title: t('settings.theme') },
+  ];
+  const [activeTab, setActiveTab] = useState('general');
+
+  useEffect(() => {
+    if (isOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prev || '';
+      };
+    }
+    return undefined;
+  }, [isOpen]);
 
   return (
     <>
-      {/* Settings Button - always visible */}
+      {/* Settings Button - visible only on small screens (desktop has navbar icon) */}
       <motion.button
         whileHover={{ scale: 1.1, rotate: 90 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => togglePanel(PANELS.SETTINGS)}
-        className='fixed bottom-6 right-5 z-50 w-12 h-12 rounded-full flex items-center justify-center text-white hoverable sm:bottom-8 sm:right-6 sm:w-10 sm:h-10'
+        className='fixed md:hidden bottom-6 right-5 z-50 w-12 h-12 rounded-full flex items-center justify-center text-white hoverable sm:bottom-8 sm:right-6 sm:w-10 sm:h-10'
         style={{
           background: `linear-gradient(135deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`,
           boxShadow: `0 0 20px ${currentTheme.glowColor}`,
@@ -32,13 +51,12 @@ const SettingsPanel = () => {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop (non-clickable — modal blocks background) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={closePanel}
-              className='fixed inset-0 bg-black/70 backdrop-blur-sm z-50'
+              className='fixed inset-0 bg-black/70 backdrop-blur-sm z-40'
             />
 
             {/* Panel */}
@@ -66,111 +84,155 @@ const SettingsPanel = () => {
                 </motion.button>
               </div>
 
-              {/* Language Section */}
-              <div className='mb-5'>
-                <h3 className='text-white font-semibold mb-3 flex items-center gap-2 text-sm'>
-                  <HiGlobeAlt size={16} style={{ color: currentTheme.colors.primary }} />
-                  {t('settings.language')}
-                </h3>
-                <div className='grid grid-cols-1 gap-1.5'>
-                  {Object.values(languages).map((lang) => (
-                    <motion.button
-                      key={lang.code}
-                      whileHover={{ scale: 1.01, x: 3 }}
-                      whileTap={{ scale: 0.99 }}
-                      onClick={() => setLanguage(lang.code)}
-                      className={`w-full p-2.5 rounded-lg flex items-center gap-3 transition-all hoverable ${
-                        language === lang.code
-                          ? 'border'
-                          : 'bg-white/5 hover:bg-white/10 border border-transparent'
+              {/* Tabs */}
+              <div className='mb-4'>
+                <div className='flex gap-2'>
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`px-3 py-2 rounded-md text-sm font-medium hoverable ${
+                        activeTab === tab.id ? 'bg-white/6 text-white' : 'text-secondary bg-transparent'
                       }`}
-                      style={{
-                        borderColor: language === lang.code ? currentTheme.colors.primary : 'transparent',
-                        backgroundColor: language === lang.code ? `${currentTheme.colors.primary}20` : undefined,
-                      }}
                     >
-                      <span className='text-xl'>{lang.flag}</span>
-                      <span className='text-white font-medium text-sm'>{lang.name}</span>
-                      {language === lang.code && (
-                        <motion.div
-                          layoutId='langCheck'
-                          className='ml-auto w-5 h-5 rounded-full flex items-center justify-center'
-                          style={{ backgroundColor: currentTheme.colors.primary }}
-                        >
-                          <svg className='w-3 h-3 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={3} d='M5 13l4 4L19 7' />
-                          </svg>
-                        </motion.div>
-                      )}
-                    </motion.button>
+                      {tab.title}
+                    </button>
                   ))}
                 </div>
               </div>
 
-              {/* Theme Section */}
+              {/* Tab content */}
               <div>
-                <h3 className='text-white font-semibold mb-3 flex items-center gap-2 text-sm'>
-                  <HiColorSwatch size={16} style={{ color: currentTheme.colors.primary }} />
-                  {t('settings.theme')}
-                </h3>
-                <div className='grid grid-cols-1 gap-2'>
-                  {Object.values(themes).map((themeItem) => (
-                    <motion.button
-                      key={themeItem.id}
-                      whileHover={{ scale: 1.01, x: 3 }}
-                      whileTap={{ scale: 0.99 }}
-                      onClick={() => setTheme(themeItem.id)}
-                      className={`w-full p-2.5 rounded-lg flex items-center gap-3 transition-all hoverable ${
-                        theme === themeItem.id
-                          ? 'border'
-                          : 'bg-white/5 hover:bg-white/10 border border-transparent'
-                      }`}
-                      style={{
-                        borderColor: theme === themeItem.id ? themeItem.colors.primary : 'transparent',
-                        backgroundColor: theme === themeItem.id ? `${themeItem.colors.primary}20` : undefined,
-                      }}
-                    >
-                      {/* Color preview */}
-                      <div className='flex gap-1'>
+                {activeTab === 'general' && (
+                  <div className='mb-5'>
+                    <p className='text-white/70 text-sm mb-3'>{t('settings.preview')}</p>
+                    <div className='p-3 rounded-lg' style={{ backgroundColor: currentTheme.colors.tertiary }}>
+                      <div className='h-16 rounded-lg flex items-center justify-center'>
                         <div
-                          className='w-4 h-4 rounded-full'
+                          className='px-4 py-2 rounded-full font-bold text-white text-sm'
                           style={{
-                            backgroundColor: themeItem.colors.primary,
-                            boxShadow: `0 0 6px ${themeItem.colors.primary}`,
+                            background: `linear-gradient(90deg, ${currentTheme.colors.primary}, ${currentTheme.colors.secondary})`,
+                            boxShadow: `0 0 20px ${currentTheme.glowColor}`,
                           }}
-                        />
-                        <div
-                          className='w-4 h-4 rounded-full'
-                          style={{
-                            backgroundColor: themeItem.colors.secondary,
-                            boxShadow: `0 0 6px ${themeItem.colors.secondary}`,
-                          }}
-                        />
-                        <div
-                          className='w-4 h-4 rounded-full'
-                          style={{
-                            backgroundColor: themeItem.colors.accent,
-                            boxShadow: `0 0 6px ${themeItem.colors.accent}`,
-                          }}
-                        />
-                      </div>
-                      <div className='flex-1 text-left'>
-                        <span className='text-white font-medium text-sm'>{themeItem.name}</span>
-                      </div>
-                      {theme === themeItem.id && (
-                        <motion.div
-                          layoutId='themeCheck'
-                          className='w-5 h-5 rounded-full flex items-center justify-center'
-                          style={{ backgroundColor: themeItem.colors.primary }}
                         >
-                          <svg className='w-3 h-3 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={3} d='M5 13l4 4L19 7' />
-                          </svg>
-                        </motion.div>
-                      )}
-                    </motion.button>
-                  ))}
-                </div>
+                          Neon Style
+                        </div>
+                      </div>
+                      <div className='mt-3 text-xs text-white/60'>
+                        {t('settings.description') || 'Adjust app preferences.'}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'language' && (
+                  <div className='mb-5'>
+                    <h3 className='text-white font-semibold mb-3 flex items-center gap-2 text-sm'>
+                      <HiGlobeAlt size={16} style={{ color: currentTheme.colors.primary }} />
+                      {t('settings.language')}
+                    </h3>
+                    <div className='grid grid-cols-1 gap-1.5'>
+                      {Object.values(languages).map((lang) => (
+                        <motion.button
+                          key={lang.code}
+                          whileHover={{ scale: 1.01, x: 3 }}
+                          whileTap={{ scale: 0.99 }}
+                          onClick={() => setLanguage(lang.code)}
+                          className={`w-full p-2.5 rounded-lg flex items-center gap-3 transition-all hoverable ${
+                            language === lang.code
+                              ? 'border'
+                              : 'bg-white/5 hover:bg-white/10 border border-transparent'
+                          }`}
+                          style={{
+                            borderColor: language === lang.code ? currentTheme.colors.primary : 'transparent',
+                            backgroundColor: language === lang.code ? `${currentTheme.colors.primary}20` : undefined,
+                          }}
+                        >
+                          <span className='text-xl'>{lang.flag}</span>
+                          <span className='text-white font-medium text-sm'>{lang.name}</span>
+                          {language === lang.code && (
+                            <motion.div
+                              layoutId='langCheck'
+                              className='ml-auto w-5 h-5 rounded-full flex items-center justify-center'
+                              style={{ backgroundColor: currentTheme.colors.primary }}
+                            >
+                              <svg className='w-3 h-3 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={3} d='M5 13l4 4L19 7' />
+                              </svg>
+                            </motion.div>
+                          )}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'appearance' && (
+                  <div>
+                    <h3 className='text-white font-semibold mb-3 flex items-center gap-2 text-sm'>
+                      <HiColorSwatch size={16} style={{ color: currentTheme.colors.primary }} />
+                      {t('settings.theme')}
+                    </h3>
+                    <div className='grid grid-cols-1 gap-2'>
+                      {Object.values(themes).map((themeItem) => (
+                        <motion.button
+                          key={themeItem.id}
+                          whileHover={{ scale: 1.01, x: 3 }}
+                          whileTap={{ scale: 0.99 }}
+                          onClick={() => setTheme(themeItem.id)}
+                          className={`w-full p-2.5 rounded-lg flex items-center gap-3 transition-all hoverable ${
+                            theme === themeItem.id
+                              ? 'border'
+                              : 'bg-white/5 hover:bg-white/10 border border-transparent'
+                          }`}
+                          style={{
+                            borderColor: theme === themeItem.id ? themeItem.colors.primary : 'transparent',
+                            backgroundColor: theme === themeItem.id ? `${themeItem.colors.primary}20` : undefined,
+                          }}
+                        >
+                          {/* Color preview */}
+                          <div className='flex gap-1'>
+                            <div
+                              className='w-4 h-4 rounded-full'
+                              style={{
+                                backgroundColor: themeItem.colors.primary,
+                                boxShadow: `0 0 6px ${themeItem.colors.primary}`,
+                              }}
+                            />
+                            <div
+                              className='w-4 h-4 rounded-full'
+                              style={{
+                                backgroundColor: themeItem.colors.secondary,
+                                boxShadow: `0 0 6px ${themeItem.colors.secondary}`,
+                              }}
+                            />
+                            <div
+                              className='w-4 h-4 rounded-full'
+                              style={{
+                                backgroundColor: themeItem.colors.accent,
+                                boxShadow: `0 0 6px ${themeItem.colors.accent}`,
+                              }}
+                            />
+                          </div>
+                          <div className='flex-1 text-left'>
+                            <span className='text-white font-medium text-sm'>{themeItem.name}</span>
+                          </div>
+                          {theme === themeItem.id && (
+                            <motion.div
+                              layoutId='themeCheck'
+                              className='w-5 h-5 rounded-full flex items-center justify-center'
+                              style={{ backgroundColor: themeItem.colors.primary }}
+                            >
+                              <svg className='w-3 h-3 text-white' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={3} d='M5 13l4 4L19 7' />
+                              </svg>
+                            </motion.div>
+                          )}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Preview */}

@@ -9,9 +9,18 @@ const Stars = (props) => {
     random.inSphere(new Float32Array(5000), { radius: 1.2 })
   );
 
+  // Mobile vs Desktop animatsiya tezligi
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
   useFrame((state, delta) => {
-    ref.current.rotation.x -= delta / 10;
-    ref.current.rotation.y -= delta / 15;
+    if (!ref.current) return;
+    
+    // Mobileda sekinroq aylanish
+    const rotationSpeedX = isMobile ? delta / 20 : delta / 10;
+    const rotationSpeedY = isMobile ? delta / 30 : delta / 15;
+    
+    ref.current.rotation.x -= rotationSpeedX;
+    ref.current.rotation.y -= rotationSpeedY;
   });
 
   return (

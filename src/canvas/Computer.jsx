@@ -6,12 +6,23 @@ import { OrbitControls, Preload, Float } from '@react-three/drei';
 const TechModel = () => {
   const meshRef = useRef();
   const ringRef = useRef();
+  const isMobileRef = useRef(typeof window !== 'undefined' && window.innerWidth <= 768);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    meshRef.current.rotation.y = t * 0.15;
-    ringRef.current.rotation.z = t * 0.2;
-    ringRef.current.rotation.x = Math.sin(t * 0.2) * 0.15;
+    const speedMultiplier = isMobileRef.current ? 0.3 : 1; // Mobileda 70% sekinlash
+    
+    // X o'qi bo'ylab aylanish
+    meshRef.current.rotation.x = t * 0.08 * speedMultiplier;
+    // Y o'qi bo'ylab aylanish
+    meshRef.current.rotation.y = t * 0.15 * speedMultiplier;
+    // Z o'qi bo'ylab aylanish
+    meshRef.current.rotation.z = t * 0.05 * speedMultiplier;
+    
+    // Ring animatsiyasi - X va Y o'qi
+    ringRef.current.rotation.x = Math.sin(t * 0.2 * speedMultiplier) * 0.2;
+    ringRef.current.rotation.y = t * 0.25 * speedMultiplier;
+    ringRef.current.rotation.z = t * 0.2 * speedMultiplier;
   });
 
   return (
@@ -62,10 +73,14 @@ const TechModel = () => {
 const FloatingParticle = ({ index }) => {
   const meshRef = useRef();
   const radius = 2.5 + Math.random() * 1;
-  const speed = 0.02 + Math.random() * 0.03;
+  const baseSpeed = 0.02 + Math.random() * 0.03;
   const offset = (index / 10) * Math.PI * 2;
+  const isMobileRef = useRef(typeof window !== 'undefined' && window.innerWidth <= 768);
 
   useFrame((state) => {
+    // Mobileda juda sekinroq - gyroscope ta'sirini kamaytirish uchun
+    const speedMultiplier = isMobileRef.current ? 0.3 : 1; // 70% sekinlash
+    const speed = baseSpeed * speedMultiplier;
     const t = state.clock.getElapsedTime() * speed + offset;
     meshRef.current.position.x = Math.sin(t) * radius;
     meshRef.current.position.z = Math.cos(t) * radius;
@@ -116,8 +131,10 @@ const ComputerCanvas = () => {
         <OrbitControls
           enableZoom={false}
           enablePan={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
+          maxPolarAngle={Math.PI * 0.75}
+          minPolarAngle={Math.PI * 0.25}
+          autoRotate={true}
+          autoRotateSpeed={3}
         />
       </Suspense>
       <Preload all />

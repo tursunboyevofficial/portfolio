@@ -6,7 +6,6 @@ import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker } from 'react-ic
 import { sendContactForm } from '../utils/telegram';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
-import useDeviceMotion from '../hooks/useDeviceMotion';
 
 const socialIcons = {
   github: FaGithub,
@@ -19,8 +18,7 @@ const Contact = () => {
   const formRef = useRef();
   const { t } = useLanguage();
   const { currentTheme } = useTheme();
-  const { tilt, isSupported } = useDeviceMotion();
-  const normalizedTilt = isSupported ? tilt : { x: 0, y: 0 };
+  const normalizedTilt = { x: 0, y: 0 };
   const [form, setForm] = useState({
     name: '',
     email: '',

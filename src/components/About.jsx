@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { HiOutlineGlobeAlt, HiOutlineDeviceMobile, HiOutlineServer, HiOutlineColorSwatch } from 'react-icons/hi';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
-import useDeviceMotion from '../hooks/useDeviceMotion';
 
 const serviceIcons = {
   web: HiOutlineGlobeAlt,
@@ -11,7 +10,7 @@ const serviceIcons = {
   design: HiOutlineColorSwatch,
 };
 
-const ServiceCard = ({ index, icon, titleKey, descKey, currentTheme, t, tilt }) => {
+const ServiceCard = ({ index, icon, titleKey, descKey, currentTheme, t, tilt = { x: 0, y: 0 } }) => {
   const Icon = serviceIcons[icon];
   return (
     <motion.div
@@ -69,9 +68,8 @@ const ServiceCard = ({ index, icon, titleKey, descKey, currentTheme, t, tilt }) 
 const About = () => {
   const { t } = useLanguage();
   const { currentTheme } = useTheme();
-  const { tilt, isSupported } = useDeviceMotion();
 
-  const normalizedTilt = isSupported ? tilt : { x: 0, y: 0 };
+  const normalizedTilt = { x: 0, y: 0 };
 
   const services = [
     { icon: 'web', titleKey: 'web', descKey: 'webDesc' },

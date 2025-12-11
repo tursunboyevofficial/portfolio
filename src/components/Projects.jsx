@@ -5,7 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import useDeviceMotion from '../hooks/useDeviceMotion';
 
-const ProjectCard = ({ index, projectKey, tags, image, sourceCode, liveDemo, currentTheme, tilt, t }) => {
+const ProjectCard = ({ index, projectKey, tags, image, sourceCode, liveDemo, currentTheme, tilt = { x: 0, y: 0 }, t }) => {
   const name = t(`projects.${projectKey}.name`);
   const description = t(`projects.${projectKey}.description`);
 

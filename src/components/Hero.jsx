@@ -4,7 +4,6 @@ import { ComputerCanvas } from '../canvas';
 import { FaGithub, FaLinkedinIn, FaTelegramPlane, FaInstagram } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
-import useDeviceMotion from '../hooks/useDeviceMotion';
 
 const socialIcons = {
   github: FaGithub,
@@ -16,17 +15,9 @@ const socialIcons = {
 const Hero = () => {
   const { t } = useLanguage();
   const { currentTheme } = useTheme();
-  const { tilt, isSupported } = useDeviceMotion();
 
-  // Gyroscope-based transform values (reduced for mobile performance)
-  const gyroTransform = isSupported
-    ? {
-        x: tilt.x * 8,
-        y: tilt.y * 8,
-        rotateX: tilt.y * 3,
-        rotateY: tilt.x * 3,
-      }
-    : { x: 0, y: 0, rotateX: 0, rotateY: 0 };
+  // Gyroscope disabled
+  const gyroTransform = { x: 0, y: 0, rotateX: 0, rotateY: 0 };
 
   return (
     <section className='relative w-full h-screen max-h-screen mx-auto overflow-hidden hero-section'>
