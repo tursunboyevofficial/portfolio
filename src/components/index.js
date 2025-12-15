@@ -8,6 +8,7 @@ import Footer from './Footer';
 import CustomCursor from './CustomCursor';
 import SettingsPanel from './SettingsPanel';
 import AIChat from './AIChat';
+import ConsentBanner from './ConsentBanner';
 
 export {
   Navbar,
@@ -20,4 +21,5 @@ export {
   CustomCursor,
   SettingsPanel,
   AIChat,
+  ConsentBanner,
 };

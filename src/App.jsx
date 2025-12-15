@@ -1,4 +1,4 @@
-import { Navbar, Hero, About, Skills, Projects, Contact, Footer, CustomCursor, SettingsPanel, AIChat } from './components';
+import { Navbar, Hero, About, Skills, Projects, Contact, Footer, CustomCursor, SettingsPanel, AIChat, ConsentBanner } from './components';
 import { StarsCanvas } from './canvas';
 import useVisitorTracking from './hooks/useVisitorTracking';
 import { LanguageProvider } from './context/LanguageContext';
@@ -19,6 +19,9 @@ function AppContent() {
 
       {/* AI Chat */}
       <AIChat />
+
+      {/* Consent Banner */}
+      <ConsentBanner />
 
       {/* Navbar */}
       <Navbar />

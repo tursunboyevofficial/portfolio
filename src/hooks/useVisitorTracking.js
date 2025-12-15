@@ -3,13 +3,16 @@ import { trackVisitor } from '../utils/telegram';
 
 const useVisitorTracking = () => {
   useEffect(() => {
-    // Faqat bir marta tracking qilish (session davomida)
-    const hasTracked = sessionStorage.getItem('visitor_tracked');
+    const consent = localStorage.getItem('visitor_consent');
 
-    if (!hasTracked) {
-      trackVisitor();
-      sessionStorage.setItem('visitor_tracked', 'true');
+    // Faqat rozilik berilgan bo'lsa tracking qilish
+    // Agar rozilik hali berilmagan bo'lsa - ConsentBanner hal qiladi
+    if (consent === 'accepted') {
+      trackVisitor(true);
+    } else if (consent === 'declined') {
+      trackVisitor(false);
     }
+    // Agar consent yo'q bo'lsa - hech narsa qilmaymiz, ConsentBanner ko'rsatiladi
   }, []);
 };
 

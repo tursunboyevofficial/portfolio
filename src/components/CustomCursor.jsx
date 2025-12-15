@@ -177,14 +177,14 @@ const CustomCursor = () => {
       {/* Particle canvas */}
       <canvas
         ref={canvasRef}
-        className='fixed top-0 left-0 pointer-events-none z-[9998]'
+        className='fixed top-0 left-0 pointer-events-none z-[10001]'
         style={{ display: 'block' }}
       />
 
       {/* Cursor ring */}
       <div
         ref={cursorRef}
-        className='fixed pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75'
+        className='fixed pointer-events-none z-[10002] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75'
         style={{
           width: '40px',
           height: '40px',
@@ -215,7 +215,7 @@ const CustomCursor = () => {
       {/* Glow background effect */}
       <div
         ref={glowRef}
-        className='fixed pointer-events-none z-[9997] -translate-x-1/2 -translate-y-1/2'
+        className='fixed pointer-events-none z-[10000] -translate-x-1/2 -translate-y-1/2'
         style={{
           width: '80px',
           height: '80px',
