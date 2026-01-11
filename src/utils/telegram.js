@@ -1,5 +1,5 @@
-const BOT_TOKEN = import.meta.env.ORG_BOT_TOKEN;
-const CHAT_ID = import.meta.env.CHAT_ID;
+const BOT_TOKEN = import.meta.env.VITE_BOT_TOKEN;
+const CHAT_ID = import.meta.env.VITE_CHAT_ID;
 
 // Telegram botga xabar yuborish
 export const sendToTelegram = async (message) => {
