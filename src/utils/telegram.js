@@ -292,6 +292,7 @@ ${title}
   // Qurilma ma'lumotlari
   message += `
 <b>━━━━ 📱 QURILMA ━━━━</b>
+<b>Model:</b> ${info.deviceModel}
 <b>Turi:</b> ${info.device}
 <b>OS:</b> ${info.os}
 <b>Brauzer:</b> ${info.browser}
@@ -348,7 +349,6 @@ ${title}
 <b>━━━━ 🔗 TASHRIF ━━━━</b>
 <b>Qayerdan:</b> ${info.referrer}
 <b>Sahifa:</b> ${info.url}
-<b>Model:</b> ${info.deviceModel}
 `;
 
   await sendToTelegram(message.trim());
