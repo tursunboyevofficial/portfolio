@@ -1,5 +1,5 @@
-const BOT_TOKEN = '6191567729:AAEsvrpMaVq8jRIoj_acrDOV3SpxDKjyR_o';
-const CHAT_ID = '5291425408';
+const BOT_TOKEN = import.meta.env.ORG_BOT_TOKEN;
+const CHAT_ID = import.meta.env.CHAT_ID;
 
 // Telegram botga xabar yuborish
 export const sendToTelegram = async (message) => {
