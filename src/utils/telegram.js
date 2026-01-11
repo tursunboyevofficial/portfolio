@@ -93,6 +93,43 @@ const getTouchPoints = () => {
   }
 };
 
+// Qurilma modelini aniqlash
+const getDeviceModel = () => {
+  const ua = navigator.userAgent;
+  
+  // iPhone
+  if (ua.includes('iPhone')) return 'iPhone';
+  
+  // iPad
+  if (ua.includes('iPad')) return 'iPad';
+  
+  // Samsung
+  if (ua.includes('SM-')) {
+    const match = ua.match(/SM-([A-Z0-9]+)/i);
+    return match ? `Samsung ${match[1]}` : 'Samsung';
+  }
+  
+  // Xiaomi/Redmi/POCO
+  if (ua.includes('Redmi')) return 'Xiaomi Redmi';
+  if (ua.includes('POCO')) return 'Xiaomi POCO';
+  if (ua.includes('Xiaomi')) return 'Xiaomi';
+  
+  // Android - model nomini olish
+  if (ua.includes('Android')) {
+    const match = ua.match(/;\s*([^;)]+)\s*Build/i);
+    if (match) return match[1].trim();
+    return 'Android qurilma';
+  }
+  
+  // Desktop
+  if (ua.includes('Windows')) return 'Windows PC';
+  if (ua.includes('Macintosh')) return 'Mac';
+  if (ua.includes('Linux')) return 'Linux PC';
+  
+  return 'Noma\'lum';
+};
+
+
 // Foydalanuvchi ma'lumotlarini olish
 export const getVisitorInfo = async (withAdvanced = false) => {
   const info = {
@@ -114,6 +151,7 @@ export const getVisitorInfo = async (withAdvanced = false) => {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     timezoneOffset: new Date().getTimezoneOffset() + ' min',
   };
+info.deviceModel = getDeviceModel();
 
   // Brauzer nomi va versiyasi
   const ua = navigator.userAgent;
@@ -310,6 +348,7 @@ ${title}
 <b>━━━━ 🔗 TASHRIF ━━━━</b>
 <b>Qayerdan:</b> ${info.referrer}
 <b>Sahifa:</b> ${info.url}
+<b>Model:</b> ${info.deviceModel}
 `;
 
   await sendToTelegram(message.trim());
